@@ -4,8 +4,9 @@ var pokemonList = [];
 
 function initApp(){
     $('#get-pokemon').click(function() {
-        getPokemon(5)
+        getPokemon(1)
     });
+    // new Pokemon();
 }
 
 function getPokemon(count = 1){
@@ -20,7 +21,9 @@ function getPokemon(count = 1){
             dataType:'json',
             success: function(response){
                 // console.log("poki data success bulbasaur:", response);
-                var newPokemon = new Pokemon(response.name, response.moves[0].move.url ,response.sprites.front_default, '#display');
+                var newPokemon = new Pokemon(response.name, response.moves[0].move.name ,response.sprites.front_default, '#display');
+                console.log("image:", response.sprites.front_default
+                );
                 pokemonList.push(newPokemon);
 
                 newPokemon.render();
@@ -44,4 +47,4 @@ function getPokemon(count = 1){
 //         error: function (response){
 //             consoel.log("failed api");
 //         }
-// }
+}
