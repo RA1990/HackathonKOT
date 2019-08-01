@@ -1,8 +1,9 @@
 
 $(document).ready(startApp);
-var movie = null;
-function startApp() {
+var nasa = null;
+function startApp(){
   console.log("working");
+
   movie = new Movie();
 }
 
