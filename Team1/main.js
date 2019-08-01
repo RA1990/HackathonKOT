@@ -4,7 +4,7 @@ var weather = null;
 function startApp(){
 
 weather = new Weather();
-//weather.eventHandlers();
+weather.eventHandlers();
 
 }
 class Weather{
@@ -15,13 +15,13 @@ constructor(){
   this.longitude = null;
   this.showLocation = this.showLocation.bind(this);
   this.getLocation();
-  //this.eventHandlers = this.eventHandlers.bind(this);
+  this.eventHandlers = this.eventHandlers.bind(this);
   this.getWeatherData = this.getWeatherData.bind(this);
   this.getLocation = this.getLocation.bind(this);
 }
-/* eventHandlers(){
+eventHandlers(){
 $('#getLocation').on('click',this.getLocation)
-} */
+}
 
 getLocation(){
   if (navigator.geolocation) {
@@ -33,7 +33,7 @@ getLocation(){
 }
 showLocation(position) {
   console.log('Show Location:', this);
-  //$("#main").text("You are at: Lat : "+position.coords.latitude+" Long :"+ position.coords.latitude);
+  $("#main").text("You are at: Lat : "+position.coords.latitude+" Long :"+ position.coords.latitude);
   this.latitude= position.coords.latitude;
   this.longitude = position.coords.longitude;
 
@@ -46,10 +46,25 @@ getWeatherData(latitude, longitude){
       method: 'get',
       dataType: 'jsonp',
       success: function (response) {
-        var responseResult = $('<div>').addClass('currentLocation').text(response.timezone + ' '  + response.currently.temperature + ' ' + response.currently.icon );
-        $('#main').append(responseResult);
+        var responseResult = $('<div>').addClass('currentLocation').css(
+          'color' , 'red'
+        ).text(response.timezone + ' '  + response.currently.temperature + ' ' + response.currently.icon );  
+        $('#top').append(responseResult);
         console.log("Weather Information", response);
-       /*  console.log(response.timezone);
+      if(response.currently.temperature > '70'){
+        var iconSunnyResult = $('<img>', {
+          'id' : 'iconDisplay',
+          'src' : '/Users/catherine/lfz/c619_hackathon2/Team1/icon/sunny.png'
+        });
+      } else { 
+        var iconElseResult = $('<img>', {
+          'id' : 'iconDisplay',
+          'src' : '/Users/catherine/lfz/c619_hackathon2/Team1/icon/partlycouldy.jpeg'
+        });
+      }
+        $('#top').append(iconSunnyResult);
+        $('#top').append(iconElseResult);
+       /* console.log(response.timezone);
         console.log(response.currently.temperature);
         console.log(response.currently.icon); */
       }.bind(this),
