@@ -9,7 +9,7 @@ function initApp(){
 }
 
 function getPokemon(count = 1){
-    // console.log('Get Pokemon   Called!');
+    // console.log('Get Pokemon Called!');
     
     for(var i = 0; i < count; i++){
         var pokemonUrl = "https://pokeapi.co/api/v2/pokemon/"+(Math.floor(Math.random(i) * 100) + 1)+"/";//you do (Math.floor(Math.random(i) * 100) because
