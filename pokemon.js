@@ -1,3 +1,4 @@
+
 class Pokemon{
     constructor(pokemonName, pokemonMove, pokemonImage, elementId){  //pokemonName,pokemonMove,pokemonImage
         this.pokemonName=pokemonName;
