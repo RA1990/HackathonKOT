@@ -1,110 +1,12 @@
-
-// var movie = null;
-
-// function initializeApp(){
-//   movie = new movie();
-// }
-
-// class movie(){
-//   constructor(){
-
-//   }
-
-// }
-
-// "genres": [
-//   {
-//     "id": 28,
-//     "name": "Action" // cloudy
-//   },
-//   {
-//     "id": 12,
-//     "name": "Adventure" //sunny
-//   },
-//   {
-//     "id": 16,
-//     "name": "Animation" //snowy
-//   },
-//   {
-//     "id": 35,
-//     "name": "Comedy" //cloudy
-//   },
-//   {
-//     "id": 80,
-//     "name": "Crime" // cloudy
-//   },
-//   {
-//     "id": 99,
-//     "name": "Documentary" //rainy
-//   },
-//   {
-//     "id": 18,
-//     "name": "Drama" //sunny
-//   },
-
-
-//   {
-//     "id": 10751,
-//     "name": "Family" //sunny
-//   },
-//   {
-//     "id": 14,
-//     "name": "Fantasy" // partCloudy
-//   },
-//   {
-//     "id": 36,
-//     "name": "History" //rainy
-//   },
-//   {
-//     "id": 27,
-//     "name": "Horror" // cloudy
-//   },
-//   {
-//     "id": 10402,
-//     "name": "Music" // sunny
-//   },
-//   {
-//     "id": 9648,
-//     "name": "Mystery"
-//   },
-//   {
-//     "id": 10749,
-//     "name": "Romance"
-//   },
-//   {
-//     "id": 878,
-//     "name": "Science Fiction"
-//   },
-//   {
-//     "id": 10770,
-//     "name": "TV Movie"
-//   },
-//   {
-//     "id": 53,
-//     "name": "Thriller"
-//   },
-//   {
-//     "id": 10752,
-//     "name": "War"
-//   },
-//   {
-//     "id": 37,
-//     "name": "Western"
-//   }
-// ]
-// }
-
-
-
 $(document).ready(startApp);
 var movie = null;
 function startApp() {
   console.log("working");
   movie = new Movie();
 }
+
 class Movie {
   constructor() {
-   // debugger;
     this.newMovieDomArray = [];
     this.marsPicFromRobot = null;
     this.currentDate = new Date();
@@ -189,15 +91,15 @@ class Movie {
       var currentWeather = 'sunny';
 
       console.log("Movie Response", response);
-      debugger
-
+      //debugger
+      // console.log("rtyfuhjk",response[0].title)
       var weatherGenreMaps = {
         sunny: [28/*, 12, 16, 35, 80, 99, 18, 37, 10402, 878, 53, 37*/],
         cloudy: [10751, 14, 36, 878, 27, 10752, 10770, 9648, 10749],
 
 
       }
-
+    //  $(body).append(weatherGenreMaps.sunny[0])
       var moviesForCurrentWeather = [];
 
       var movieSearch = response.results; //return the json of the movie results
@@ -232,19 +134,37 @@ class Movie {
 
 
 
-      var randomMovie = Math.floor(Math.random() * moviesForCurrentWeather.length);
+
+
+      //var randomMovie = Math.floor(Math.random() * moviesForCurrentWeather.length);
       // console.log(randomMovie)
 
-      var createTitle = moviesForCurrentWeather[randomMovie ].title;
-      var createPic = moviesForCurrentWeather[randomMovie ].poster_path;
+      for(var i = 0; i < moviesForCurrentWeather.length; i++){
+        var createTitle = moviesForCurrentWeather[i].title;
+        // console.log("Title:", createTitle)
 
-       var createDom = $("<div>").addClass("container");
+        var createPic = moviesForCurrentWeather[i].poster_path;
+        console.log("picture:", createPic)
+
+        var createDom = $("<div>").addClass("container");
+
+        var picture = $("<img>").attr("src", 'http://image.tmdb.org/t/p/w300/'+createPic);
+
+        var title = $("<div>").addClass("title");
+        title.append(createTitle)
 
 
 
-      createDom.append(createPic, createTitle, createDate);
 
-      $("#main").append(createDom)
+        createDom.append(picture, title);
+
+        $(".main").append(createDom)
+
+
+      }
+
+
+
 
 
     }.bind(this),
@@ -256,14 +176,82 @@ class Movie {
 
 }
 
-render(){
 
 }
 
 
 
 
-}
+
+
+// success: function (response) {
+//   var currentWeather = 'sunny';
+
+//   console.log("Movie Response", response);
+//   //debugger
+
+//   var weatherGenreMaps = {
+//     sunny: [28/*, 12, 16, 35, 80, 99, 18, 37, 10402, 878, 53, 37*/],
+//     cloudy: [10751, 14, 36, 878, 27, 10752, 10770, 9648, 10749],
+
+
+//   }
+
+//   var moviesForCurrentWeather = [];
+
+//   var movieSearch = response.results; //return the json of the movie results
+//   // console.log("movie Search", movieSearch)
+
+//   for (var movieIndex = 0; movieIndex < movieSearch.length; movieIndex++) {
+//     var genresIdArray = movieSearch[movieIndex].genre_ids; // return an Arrays of movies id
+//     //  console.log("genresId",genresIdArray)
+//     var movieTitle = movieSearch[movieIndex].title;
+//     //  console.log("movie Title", movieTitle)
+
+//     // var movieReleaseDate = movieSearch[movieIndex].release_date;
+//     // console.log("Release Date",movieReleaseDate)
+
+//     var moviePic = movieSearch[movieIndex].poster_path;
+//     // console.log("pic", moviePic)
+//     for (var movieGenreIndex = 0; movieGenreIndex < genresIdArray.length; movieGenreIndex++) {
+//       var movieGenreId = genresIdArray[movieGenreIndex];
+
+//       if (weatherGenreMaps[currentWeather].includes(movieGenreId)) {
+//         moviesForCurrentWeather.push({
+//           title: movieTitle,
+//           // release_date: movieReleaseDate,
+//           poster_path: moviePic,
+//         });
+//         break;
+//       }
+//     }
+//   }
+
+//   console.log("final Output", moviesForCurrentWeather);
+
+
+
+
+
+//   //var randomMovie = Math.floor(Math.random() * moviesForCurrentWeather.length);
+//   // console.log(randomMovie)
+
+//   var createTitle = moviesForCurrentWeather[randomMovie].title;
+//   var createPic = moviesForCurrentWeather[randomMovie].poster_path;
+
+//   var createDom = $("<div>").addClass("container");
+
+//   var picture = $("<img>").attr("src", createPic);
+//   var title = $("<div>").addClass("title");
+//   title.append(createTitle)
+
+
+//   createDom.append(picture, title);
+
+//   $("#main").append(createDom)
+
+
+// }.bind(this),
 
 
 
@@ -272,10 +260,7 @@ render(){
 
 
 
-
-
-
-
+//----------------------------------------------------------------------------
 
 
 
