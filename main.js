@@ -3,7 +3,6 @@ $(document).ready(startApp);
 var nasa = null;
 function startApp(){
   console.log("working");
-
   movie = new Movie();
 }
 
@@ -16,6 +15,7 @@ class Movie {
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1;
     this.currentDay = this.currentDate.getDate();
+    this.movieSelected = this.movieSelected;
     this.getPicturesAndVideosOfSpaceBasedOnCurrentDate();
     this.MovieAjax();
   }
@@ -37,6 +37,7 @@ class Movie {
       }
     });
   }
+
   getPicturesAndVideosOfSpaceBasedOnCurrentDate() {
     //debugger;
     $.ajax({
@@ -97,11 +98,10 @@ class Movie {
       //debugger
       // console.log("rtyfuhjk",response[0].title)
       var weatherGenreMaps = {
-        sunny: [28/*, 12, 16, 35, 80, 99, 18, 37, 10402, 878, 53, 37*/],
-        cloudy: [10751, 14, 36, 878, 27, 10752, 10770, 9648, 10749],
-
-
+        sunny: [10402 , 12, 16, 35, 80, 99, 18, 37, 28, 878, 53, 37],
+        // cloudy: [10751, 14, 36, 878, 27, 10752, 10770, 9648, 10749],
       }
+
     //  $(body).append(weatherGenreMaps.sunny[0])
       var moviesForCurrentWeather = [];
 
@@ -135,19 +135,19 @@ class Movie {
 
       console.log("final Output",moviesForCurrentWeather);
 
-      //var randomMovie = Math.floor(Math.random() * moviesForCurrentWeather.length);
-      // console.log(randomMovie)
 
-      for(var i = 0; i < moviesForCurrentWeather.length; i++){
-        var createTitle = moviesForCurrentWeather[i].title;
+     var randomMovie = Math.floor(Math.random() * moviesForCurrentWeather.length);
+
+      // for(var i = 0; i < moviesForCurrentWeather; i++){
+        var createTitle = moviesForCurrentWeather[randomMovie].title;
         // console.log("Title:", createTitle)
 
-        var createPic = moviesForCurrentWeather[i].poster_path;
+        var createPic = moviesForCurrentWeather[randomMovie].poster_path;
         console.log("picture:", createPic)
 
         var createDom = $("<div>").addClass("container");
 
-        var picture = $("<img>").attr("src", 'http://image.tmdb.org/t/p/w300/'+createPic);
+        var picture = $("<img>").attr("src", 'http://image.tmdb.org/t/p/w300/' + createPic);
 
         var title = $("<div>").addClass("title");
         title.append(createTitle)
@@ -163,9 +163,7 @@ class Movie {
         $(".main").append(createDom)
 
 
-      }
-
-
+      // }
 
 
 
@@ -180,8 +178,6 @@ class Movie {
 
 
 }
-
-
 
 
 
