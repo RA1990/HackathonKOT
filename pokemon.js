@@ -1,31 +1,27 @@
-$(document).ready(initApp);
-var pokemonList = [];
-function initApp() {
-  $('#get-pokemon').click(function () {
-    getPokemon(5)
-  });
-  // new Pokemon();
-}
-function getPokemon(count = 1) {
-  // console.log('Get Pokemon Called!');
 
-  for (var i = 0; i < count; i++) {
-    var pokemonUrl = "https://pokeapi.co/api/v2/pokemon/" + (Math.floor(Math.random(i) * 100) + 1) + "/";//you do (Math.floor(Math.random(i) * 100) because
-    //you want the i start from 1 to 9, so you get random number from all the pokemon, 9 times.
-    $.ajax({//call this ajax function on each loop
-      url: pokemonUrl,
-      method: 'get',
-      dataType: 'json',
-      success: function (response) {
-        // console.log("poki data success bulbasaur:", response);
-        var newPokemon = new Pokemon(response.name, response.moves[0].move.name, response.sprites.front_default, '#display');
-        console.log("image:", response.sprites.front_default
-        );
-        pokemonList.push(newPokemon);
-        newPokemon.render();
-      },
-      error: function (response) {
-        consoel.log("failed api");
-      }
-    });
-  }
+class Pokemon{
+    constructor(pokemonName, pokemonMove, pokemonImage, elementId){  //pokemonName,pokemonMove,pokemonImage
+        this.pokemonName=pokemonName;
+        this.pokemonMove=pokemonMove;  
+        this.pokemonImage=pokemonImage;
+
+        this.container = $(elementId);
+        // this.newPokemon=new Pokemon(this.pokemonName,this.pokemonMove,this.pokemonImage);
+
+        console.log('New Pokemon Being Created:', this);
+        this.domElements = {
+        }
+        // console.log(this.newStr());
+    }
+    
+    render(){
+        var name = $('<h1>', { text: this.pokemonName });
+        // var move= $('<h2>', {text: this.pokemonMove});
+        var move= $('<h2>').text(this.pokemonMove);
+        var image= $('<img>').attr("src",this.pokemonImage);
+        this.container.append(name);
+        this.container.append(move);
+        this.container.append(image);
+         
+    }
+}
