@@ -1,9 +1,11 @@
+
 $(document).ready(startApp);
 var movie = null;
 function startApp() {
   console.log("working");
   movie = new Movie();
 }
+
 
 class Movie {
   constructor() {
@@ -132,10 +134,6 @@ class Movie {
 
       console.log("final Output",moviesForCurrentWeather);
 
-
-
-
-
       //var randomMovie = Math.floor(Math.random() * moviesForCurrentWeather.length);
       // console.log(randomMovie)
 
@@ -154,9 +152,12 @@ class Movie {
         title.append(createTitle)
 
 
-
-
-        createDom.append(picture, title);
+        createDom.append(picture, title).css({
+          "display" : "inline-block",
+          "padding" : "3%",
+          "margin-left" : "5%",
+          "font-weight" : "bold"
+        });
 
         $(".main").append(createDom)
 
