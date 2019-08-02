@@ -1,9 +1,3 @@
-
-$(document).ready(startApp);
-var weather = null;
-function startApp() {
-  weather = new Weather();
-}
 class Weather {
   constructor() {
 
@@ -23,6 +17,7 @@ class Weather {
 
   }
   showLocation(position) {
+    $("#main").text("You are at: Lat : " + position.coords.latitude + " Long :" + position.coords.latitude);
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
     this.getWeatherData(this.latitude, this.longitude);
@@ -34,9 +29,22 @@ class Weather {
       dataType: 'jsonp',
       success: function (response) {
         var responseResult = $('<div>').addClass('currentLocation').text(response.timezone + ' ' + response.currently.temperature + ' ' + response.currently.icon);
-        $('#main').append(responseResult);
+        $('#top').append(responseResult);
         console.log("Weather Information", response);
+        if (response.currently.temperature > '70') {
+          var iconSunnyResult = $('<img>', {
+            'id': 'iconDisplay',
+            'src': '/Users/rauljauregui/lfz/c619_hackathon2/icon/sunny.png'
+          });
+        } else {
+          var iconElseResult = $('<img>', {
+            'id': 'iconDisplay',
+            'src': '/Users/rauljauregui/lfz/c619_hackathon2/icon/partlycouldy.jpeg'
+          });
+        }
 
+        $('.weatherIcon').append(iconSunnyResult);
+        $('.weatherIcon').append(iconElseResult)
       }.bind(this),
       error: function (response) {
         console.log("Error:", response)
@@ -44,9 +52,3 @@ class Weather {
     });
   }
 }
-
-
-
-
-
-

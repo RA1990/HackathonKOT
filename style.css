@@ -1,0 +1,38 @@
+body{
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.weatherIcon{
+  position:absolute;
+  margin-left:10%;
+
+
+}
+
+#iconDisplay{
+   border-radius: 53%;
+
+}
+
+#top{
+  position: relative;
+  color: white;
+  margin-left: 23%;
+  font-size: 300%;
+
+  font-family: 'Roboto Slab', serif;
+
+}
+
+#movieNasaPokemon{
+  margin-top:10%;
+
+}
+
+.pokemonPic{
+ font-size:30px;
+  display: inline-block;
+  color:yellow;
+}

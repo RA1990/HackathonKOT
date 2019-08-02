@@ -2,7 +2,6 @@
 class Nasa {
 
   constructor() {
-    debugger;
     this.currentNasaPictureForBackground = null;
     this.marsPicFromRobot = null;
     this.currentDate = new Date();
@@ -15,7 +14,6 @@ class Nasa {
   }
 
   getPicturesOfMarsFromRobot() {
-  debugger;
     $.ajax({
       url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k',
       method: 'get',
@@ -24,11 +22,8 @@ class Nasa {
         'api_key': '4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k'
       },
       success: function (response) {
-        console.log("success Nasa Data");
-        console.log(response);
-        var picIndex = Math.floor(Math.random()*800);
+        var picIndex = Math.floor(Math.random()*300);
         this.marsPicFromRobot = response["photos"][picIndex].img_src;
-        console.log(this.marsPicFromRobot);
       }.bind(this),
       error: function (response) {
         console.log("retrieve Data From Nasa failed");
@@ -50,7 +45,6 @@ class Nasa {
       },
       success: function (response) {
         console.log("success Nasa Data");
-        console.log(response.url);
         this.currentNasaPictureForBackground= response.url;
       }.bind(this),
       error: function (response) {
@@ -60,32 +54,29 @@ class Nasa {
   }
 
   render() {
-
-    //var divToAppendToDom = $("<div>")
     var  imageToAppendToDiv = $("<img>").attr("src",this.currentNasaPictureForBackground);
     imageToAppendToDiv.css("background-size","cover");
     imageToAppendToDiv.css("background-repeat", "no-repeat");
     imageToAppendToDiv.css("height","100vh");
     imageToAppendToDiv.css("width", "100vw");
-    //$(divToAppendToDom).append(imageToAppendToDiv);
-    $('body').css("background-image", 'url("' + this.currentNasaPictureForBackground + '")')
-    //.append(imageToAppendToDiv);
-    // position: absolute;
-    // top: 50 %;
-    // left: 50 %;
-    // transform: translate(-50 %, -50 %);
-    // width: 50 %;
-
-    var divToAppendToDom2 = $("<div>")
+    $('body').css("background-image", 'url("' + this.currentNasaPictureForBackground + '")');
+    setTimeout(function () {
+      var divToAppendToDom2 = $("<div>").css({
+        'position': 'absolute',
+        'height': '115%',
+        'display': 'inline-block',
+        'top': '1%'
+      });
     var imageToAppendToDiv2 = $("<img>").attr("src", this.marsPicFromRobot);
+    imageToAppendToDiv2.css("width","50%");
+    imageToAppendToDiv2.css("height", "50%");
+    imageToAppendToDiv2.css("padding", "30%");
+    imageToAppendToDiv2.css("border-radius", "80%");
     imageToAppendToDiv2.css("background-size", "cover");
     imageToAppendToDiv2.css("background-repeat", "no-repeat");
     $(divToAppendToDom2).append(imageToAppendToDiv2);
     $("#movieNasaPokemon").append(divToAppendToDom2);
+    }.bind(this), 2000);
+
   }
-
-
-
-
-
 }
