@@ -1,56 +1,39 @@
 
 class Nasa {
 
-  constructor() {
-    this.currentNasaPictureForBackground = null;
-    this.marsPicFromRobot = null;
-    this.currentDate = new Date();
-    this.currentYear = this.currentDate.getFullYear();
-    this.currentMonth = this.currentDate.getMonth() + 1;
-    this.currentDay =this.currentDate.getDate();
+  constructor(pokeCallback) {
+    this.getPokeman = pokeCallback;
+    this.getWarning = this.getWarning.bind(this);
+    this.weather = new Weather(this.getWarning);
+    this.weatherString = null;
+  }
+
+  getWarning(weatherString) {
+    this.weatherString = weatherString;
     this.getPicturesOfMarsFromRobot();
-    this.getPicturesAndVideosOfSpaceBasedOnCurrentDate();
-    setTimeout(function () { this.render() }.bind(this), 5000);
-  }
 
-  getPicturesOfMarsFromRobot() {
+  }
+  getPicturesOfMarsFromRobot(string) {
     $.ajax({
-      url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k',
+      url: 'https://api.nasa.gov/neo/rest/v1/neo/browse?page=0&size=20&api_key=4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k',
       method: 'get',
       dataType: 'JSON',
       data: {
-        'api_key': '4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k'
+        'api_key': '4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k',
+        page:0,
+        size:20
       },
       success: function (response) {
-        var picIndex = Math.floor(Math.random()*300);
-        this.marsPicFromRobot = response["photos"][picIndex].img_src;
+        console.log("yvyyuv success:",response);
+        var potentially_hazardous_asteroid = response.near_earth_objects[0].is_potentially_hazardous_asteroid;
+        console.log(potentially_hazardous_asteroid);
+        this.getPokeman( 0,this.weatherString,potentially_hazardous_asteroid);
       }.bind(this),
       error: function (response) {
         console.log("retrieve Data From Nasa failed");
       }
     });
 
-  }
-
-
-  getPicturesAndVideosOfSpaceBasedOnCurrentDate() {
-    $.ajax({
-      url: ' https://api.nasa.gov/planetary/apod?api_key=4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k',
-      method: 'get',
-      dataType: 'JSON',
-      data: {
-        date: this.currentYear + "-0" + this.currentMonth + "-" + this.currentDay,
-        hd: "False",
-        'api_key': '4GZGei353YIcMShBD9LaDMgruc3fcMTPchEnDE7k'
-      },
-      success: function (response) {
-        console.log("success Nasa Data");
-        this.currentNasaPictureForBackground= response.url;
-      }.bind(this),
-      error: function (response) {
-        console.log("retrieve Data From Nasa failed");
-      }
-    });
   }
 
   render() {

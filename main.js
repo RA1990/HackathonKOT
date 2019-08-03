@@ -6,8 +6,10 @@ var nasa=null;
 var pokemon=null;
 
 function startApp(){
-   movie = new Movie();
-   weather = new Weather();
-   nasa = new Nasa();
    pokemon = new Pokemon();
+   $('header').text('Welcome to the Movie Finder! click allow')
+   $("body").addClass("loading");
+   //$('body').text("Welcome to the Movie Finder!, click allow ");
+
+
 }
