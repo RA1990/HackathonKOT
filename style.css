@@ -1,0 +1,65 @@
+body{
+  text-align: center;
+  background-color:black;
+  height: 100vh;
+  width: 100vw;
+}
+header{
+  font-size: 40px;
+  margin-top: 8%;
+
+
+}
+.loading{
+    background-size:cover;
+    background-image: url("photo/loadpokemon.gif");
+}
+.backgroundImage{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("photo/movie-theater-background.jpg");
+}
+.model{
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    height: 30%;
+    width: 47%;
+    background-color: lightskyblue;
+    border-radius: 20%;
+    font-size: 20px;
+    color: white;
+    top: -200px;
+}
+
+.pokeIcon{
+  position: relative;
+  width: 100%;
+  bottom: 50px;
+
+}
+
+#iconDisplay{
+   border-radius: 53%;
+
+}
+
+#top{
+  position: relative;
+  color: white;
+  margin-left: 23%;
+  font-size: 300%;
+  font-family: 'Roboto Slab', serif;
+
+}
+
+#movieNasaPokemon{
+  margin-top:-10%;
+
+}
+
+.pokemonPic{
+ font-size:30px;
+  display: inline-block;
+  color:yellow;
+}
